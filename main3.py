@@ -18,15 +18,14 @@ class DataSet:
     data = np.array([[np.arange(1,time)],amps])
 
 #random data generation
-def func(size, hard, maxInterference,period):
-  a = np.arange(1,size)
-  b = np.arrange(size, setVal)
-  c = np.arrange(setVal, 1000000000)
-  
+def func(size, hard, maxInterference,period, low, high):
   iter = 0
   out = np.zeros(size-1)
   for i in a:
-    out[iter] = np.sin(i*(2*np.pi)/period)
+    if(high>= iter&& iter >=low):
+      out[iter] = np.sin(i*(2*np.pi)/period)
+    else:
+      out[iter] = 0
     if (hard != True):
       for alpha in np.random.rand(maxInterference):
         out[iter] += random.random()*np.sin(((i*np.pi*2)/period)+alpha) #generate interference
