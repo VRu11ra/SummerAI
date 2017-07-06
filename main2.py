@@ -20,6 +20,9 @@ class DataSet:
 #random data generation
 def func(size, hard, maxInterference,period):
   a = np.arange(1,size)
+  b = np.arrange(size, setVal)
+  c = np.arrange(setVal, 1000000000)
+  
   iter = 0
   out = np.zeros(size-1)
   for i in a:
