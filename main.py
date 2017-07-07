@@ -2,14 +2,6 @@ import numpy as np
 import random
 import pandas as pd
 import sys
-
-print(sys.argv)
-
-#manage data import 
-#Data = pa.read_csv('file.csv').as_matrix()
-#print(Data)
-
-#define interaction
 class DataSet:
   data = np.array([[],[]]) #[time],[amp]
   time = 0
@@ -30,13 +22,13 @@ def func(size, hard, maxInterference,period):
     iter +=1
   return out
 
-set1Test = func(1000, False, 2, 90)
-#if(sys.argv[2] == 'y'):
-#    set1Test = func(int(sys.argv[1]),True,int(sys.argv[3]),int(sys.argv[4]))
-#elif(sys.argv[2] == 'n'):
-#    set1Test = func(int(sys.argv[1]),False,int(sys.argv[3]),int(sys.argv[4]))
-#else:
-#    print('arg not recognized')
+#cli interface
+if(sys.argv[2] == 'y'):
+    set1Test = func(int(sys.argv[1]),True,int(sys.argv[3]),int(sys.argv[4]))
+elif(sys.argv[2] == 'n'):
+    set1Test = func(int(sys.argv[1]),False,int(sys.argv[3]),int(sys.argv[4]))
+else:
+    print('arg not recognized')
 print(set1Test)
 out = pd.Series(set1Test)
 out.plot()
