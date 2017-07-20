@@ -22,7 +22,7 @@ class DataSet:
     time = amps.shape
     data = np.array([[np.arange(1,time)],amps])
 
-#random data generation
+#random data generation, generates amplitudes
 def func(size, hard, maxInterference,period):
   a = np.arange(1,size)
   iter = 0
@@ -36,7 +36,7 @@ def func(size, hard, maxInterference,period):
   return out
 
 
-print(func(200,True,3,2))
+#print(func(200,True,3,2))
 
 #cli interface
 if(sys.argv[2] == 'y'):
