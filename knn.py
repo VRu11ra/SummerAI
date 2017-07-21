@@ -1,11 +1,12 @@
 import numpy as np
 import sqrt
 import pandas as pd
+
 '''
 Tr = np.array([[time, amp, dist, label],...])
 Re = np.array([[time, amp, dist, label],...])
 '''
-
+self.Tr = np.array([ 
 class KNN:
     def __init__(Tr, Re, k):
         # set all the data that we'll need as global fields
