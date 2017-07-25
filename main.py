@@ -18,12 +18,12 @@ interference = 0
 period = 0
 size = 0
 
-class DataSet:
-  data = np.array([[],[]]) #[time],[amp]
-  time = 0
-  def __init__(self,amps):
-    time = amps.shape
-    data = np.array([[np.arange(1,time)],amps])
+# class DataSet:
+#   data = np.array([[],[]]) #[time],[amp]
+#   time = 0
+#   def __init__(self,amps):
+#     time = amps.shape
+#     data = np.array([[np.arange(1,time)],amps])
 
 #random data generation, generates amplitudes
 def func(size, hard, maxInterference,period, low, high):
@@ -36,10 +36,10 @@ def func(size, hard, maxInterference,period, low, high):
       else:		
         out[iter] = 0
       if (hard != True):
-       for alpha in np.random.rand(maxInterference):
-        out[iter] += random.random()*np.sin(((i*np.pi*2)/period)+alpha) #generate interference
+          for alpha in np.random.rand(maxInterference):
+              out[iter] += random.random()*np.sin(((i*np.pi*2)/period)+alpha) #generate interference
       iter +=1
-  return out
+  return np.asarray(out)
 
 
 #print(func(200,True,3,2))
@@ -51,7 +51,10 @@ elif(sys.argv[2] == 'n'):
     set1Test = func(int(sys.argv[1]),False,int(sys.argv[3]),int(sys.argv[4]),int(sys.argv[5]), int(sys.argv[6]))
 else:
     print('arg not recognized')
-#print(set1Test)
+
+
+print(type(set1Test))
+# This makes a plot
 out = pd.Series(set1Test)
 pl.plot(out)
 pl.show()
