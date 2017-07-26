@@ -47,6 +47,7 @@ class KNN:
                 # for each point, check distance, used by index so that it was 
                 # by pointer
                 Tr[j[2]] = sqrt((Tr[j[0]]-i[0])**2 + (Tr[j[1]]-i[1])**2)
+                print(Tr[j[2]])
                 # L2 Euclidian
             # need to check here if j was referenced by pointer or by copy
             Tr = np.sort(Tr, axis = 2)
