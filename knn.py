@@ -5,6 +5,13 @@ from math import sqrt
 
 
 def func(size, hard, maxInterference, period, low, high):
+    if hard == 'y':
+        hard = True
+    elif hard == 'n':
+        hard = False
+    else:
+        raise Exception
+
     a = np.arange(1, size)
     iter = 0
     out = np.zeros(size-1)
@@ -22,9 +29,11 @@ def func(size, hard, maxInterference, period, low, high):
     out = np.pad(out,((0,0),(0,1)), mode= 'constant', constant_values= 0)
     out = np.asarray(out)
     #test below
-    np.concatenate((out, np.tile(hard, out.size)), axis = 1)
+    tile = np.expand_dims(np.tile(hard, out.shape[0]), axis=1)
+    out = np.concatenate((out, tile), axis=1)
+    arange = np.expand_dims(np.arange(0,out.shape[0]), axis=1)
+    out = np.concatenate((out, arange), axis=1)
     return out
-
 
 
 '''
@@ -33,33 +42,37 @@ def func(size, hard, maxInterference, period, low, high):
  returns predictions
  '''
 '''
-Tr = np.array([[amp, dist, label],...])
-Re = np.array([[amp, dist, label],...])
+Tr = np.array([[amp, dist, label, time],...])
+Re = np.array([[amp, dist, label, time],...])
 '''
 
-def label(Tr, Re, k,weight):
+
+def label(Tr, Re, k, weight):
     for i in range(0, Re.shape[0]):  # for every input
         for j in range(0, Tr.shape[0]):
             # for each point, check distance, used by index so that it was
             # by pointer
-            Tr[j][1] = sqrt((Tr[j][0]-Re[i][0])**2 + (weight*(j-i))**2)
+            Tr[j][1] = sqrt((float(Tr[j][0])-float(Re[i][0]))**2
+                            + (weight*(float(Tr[j][3])-float(Re[i][3])))**2)
             # L2 Euclidian
         Tr = np.sort(Tr, axis = 0)
         # need to check here that right axis was targeted and no data was lost
         # count up each of type here and return that as tag
         hard = 0
         soft = 0
+        print Tr[1][2]
         for l in range(0, k):
-            if Tr[2] is True:
+            if Tr[l][2] == 1.0:
                 hard += 1
-            elif Tr[2] is False:
+            elif Tr[l][2] == 0.0:
                 soft += 1
             else:
                 raise Exception("datatype was not bool in Tr[3] this should never happen")
         if hard >= soft:
-            i[2] = True
+            Re[i][2] = 1.0
         else:
-            i[2] = False
+            Re[i][2] = 0.0
     return Re
 
-Knn = label(func(10, 'y', 0, 5, 0, 10), func(200, 'y', 0, 100, 0, 200), 1, 1)
+Re = label(func(10, 'n', 0, 5, 0, 10), func(200, 'n', 0, 100, 0, 200), 1, 1)
+print Re
