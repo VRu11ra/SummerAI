@@ -4,7 +4,6 @@ import numpy as np
 import sys
 
 def main():
-#    df = pd.read_csv("test.csv")
     df = pd.read_csv(str(sys.argv[1]))
     b, c = np.hsplit(df,2)
     I = [b, c]
